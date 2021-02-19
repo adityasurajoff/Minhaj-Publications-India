@@ -1,0 +1,43 @@
+name: minhajpublication
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+
+version: 1.0.3+3
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  woocommerce: ^0.9.7
+  http: ^0.12.2
+  flutter_spinkit: ^4.1.2+1
+  provider: ^4.3.2+3
+  flutter_downloader: ^1.5.2
+  esys_flutter_share: ^1.0.2
+  url_launcher: ^5.7.10
+  cupertino_icons: ^1.0.0
+  carousel_slider: ^2.3.1
+  payu_money_flutter: ^0.0.3
+  flutter_html: ^1.1.1
+  shared_preferences:
+  path_provider: ^1.6.24
+  ext_storage: ^1.0.3
+  razorpay_flutter: 1.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - asset/logo.png
+    - asset/46.jpg
+    - asset/47.jpg
+    - asset/48.jpg
+  #   - images/a_dot_ham.jpeg

@@ -1,0 +1,1 @@
+discountOnCartValue(int amount) {}
