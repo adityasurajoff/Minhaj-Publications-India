@@ -12,7 +12,7 @@ import 'package:minhajpublication/widget/customNetImageLoading.dart';
 import 'package:minhajpublication/widget/loading.dart';
 // import 'package:payu_money_flutter/payu_money_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
+// import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:woocommerce/models/customer.dart';
 import 'package:woocommerce/models/order_payload.dart';
@@ -26,7 +26,7 @@ class CheckoutScreen extends StatefulWidget {
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
   static const platform = const MethodChannel("razorpay_flutter");
-  Razorpay _razorpay = Razorpay();
+  // Razorpay _razorpay = Razorpay();
   int _total = 0;
   // PayuMoneyFlutter payuMoneyFlutter = PayuMoneyFlutter();
 
@@ -71,95 +71,95 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   void initState() {
     super.initState();
     _getMyCartItems();
-    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _sucessHandler);
-    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _errhandler);
-    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _extwallet);
+    // _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _sucessHandler);
+    // _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _errhandler);
+    // _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _extwallet);
     // setupPayment();
   }
 
   @override
   void dispose() {
     super.dispose();
-    _razorpay.clear();
+    // _razorpay.clear();
   }
 
-  void _sucessHandler(PaymentSuccessResponse response) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    WooCustomer customer = WooCustomer.fromJson(
-      jsonDecode(
-        sharedPreferences.getString('userinfo'),
-      ),
-    );
-    String phone = customer.metaData[2].value.toString();
-    String email = customer.email;
-    String productName = "Minhaj Publications India Books";
-    String firstName = customer.firstName;
-    String txnID = "46987fasd";
-    String amount = "$_total";
-    wooCommerce
-        .createOrder(WooOrderPayload(
-      lineItems: Provider.of<AppState>(context, listen: false).cartItems.map(
-        (item) {
-          return LineItems(
-            productId: item.id,
-            name: "${item.name}",
-            quantity: item.quantity,
-            total: "${(double.parse(item.price) * item.quantity)}",
-            subtotal: "${(double.parse(item.price))}",
-          );
-        },
-      ).toList(),
-      currency: "INR",
-      paymentMethod: "razorpay",
-      setPaid: true,
-      status: 'processing',
-      customerId: customer.id,
-      paymentMethodTitle: "Paid via Razorpay",
-      shipping: WooOrderPayloadShipping(
-        firstName: customer.firstName,
-        lastName: customer.lastName,
-        address1: customer.shipping.address1,
-        city: customer.shipping.city,
-        state: customer.shipping.state,
-        postcode: customer.shipping.postcode,
-      ),
-      metaData: [
-        WooOrderPayloadMetaData(
-          key: "phonenumber",
-          value: phone.toString(),
-        )
-      ],
-    ))
-        .then(
-      (res) async {
-        Navigator.of(context).pop();
-        customAlert(
-          context,
-          "Order placed successfully...",
-        ).then(
-          (v) {
-            wooCommerce.deleteAllMyCartItems();
-            Provider.of<AppState>(context, listen: false).setCartItemCount(0);
-            Provider.of<AppState>(context, listen: false).setCartItems(null);
-            Navigator.of(context).pop();
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) {
-              return MyOrderScreen();
-            }), (route) => false);
-          },
-        );
-      },
-    );
-  }
+  // void _sucessHandler(PaymentSuccessResponse response) async {
+  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  //   WooCustomer customer = WooCustomer.fromJson(
+  //     jsonDecode(
+  //       sharedPreferences.getString('userinfo'),
+  //     ),
+  //   );
+  //   String phone = customer.metaData[2].value.toString();
+  //   String email = customer.email;
+  //   String productName = "Minhaj Publications India Books";
+  //   String firstName = customer.firstName;
+  //   String txnID = "46987fasd";
+  //   String amount = "$_total";
+  //   wooCommerce
+  //       .createOrder(WooOrderPayload(
+  //     lineItems: Provider.of<AppState>(context, listen: false).cartItems.map(
+  //       (item) {
+  //         return LineItems(
+  //           productId: item.id,
+  //           name: "${item.name}",
+  //           quantity: item.quantity,
+  //           total: "${(double.parse(item.price) * item.quantity)}",
+  //           subtotal: "${(double.parse(item.price))}",
+  //         );
+  //       },
+  //     ).toList(),
+  //     currency: "INR",
+  //     paymentMethod: "razorpay",
+  //     setPaid: true,
+  //     status: 'processing',
+  //     customerId: customer.id,
+  //     paymentMethodTitle: "Paid via Razorpay",
+  //     shipping: WooOrderPayloadShipping(
+  //       firstName: customer.firstName,
+  //       lastName: customer.lastName,
+  //       address1: customer.shipping.address1,
+  //       city: customer.shipping.city,
+  //       state: customer.shipping.state,
+  //       postcode: customer.shipping.postcode,
+  //     ),
+  //     metaData: [
+  //       WooOrderPayloadMetaData(
+  //         key: "phonenumber",
+  //         value: phone.toString(),
+  //       )
+  //     ],
+  //   ))
+  //       .then(
+  //     (res) async {
+  //       Navigator.of(context).pop();
+  //       customAlert(
+  //         context,
+  //         "Order placed successfully...",
+  //       ).then(
+  //         (v) {
+  //           wooCommerce.deleteAllMyCartItems();
+  //           Provider.of<AppState>(context, listen: false).setCartItemCount(0);
+  //           Provider.of<AppState>(context, listen: false).setCartItems(null);
+  //           Navigator.of(context).pop();
+  //           Navigator.of(context).pushAndRemoveUntil(
+  //               MaterialPageRoute(builder: (context) {
+  //             return MyOrderScreen();
+  //           }), (route) => false);
+  //         },
+  //       );
+  //     },
+  //   );
+  // }
 
-  void _errhandler(PaymentFailureResponse response) {
-    // print(response.message + '  ' + response.code.toString());
-    customAlert(context, response.message);
-  }
+  // void _errhandler(PaymentFailureResponse response) {
+  //   // print(response.message + '  ' + response.code.toString());
+  //   customAlert(context, response.message);
+  // }
 
-  void _extwallet(ExternalWalletResponse response) {
-    print(response.walletName + '  ' + response.walletName);
-  }
+  // void _extwallet(ExternalWalletResponse response) {
+  //   print(response.walletName + '  ' + response.walletName);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -502,7 +502,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                               }
                                             };
                                             try {
-                                              _razorpay.open(options);
+                                              // _razorpay.open(options);
                                             } catch (e) {
                                               debugPrint(e);
                                             }
