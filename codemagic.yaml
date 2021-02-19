@@ -3,7 +3,7 @@
 
 workflows:
     ios-app:
-        name: iOS App
+        name: Minhaj Publications India
         environment:
             vars:
                 XCODE_WORKSPACE: "ios/Runner"
